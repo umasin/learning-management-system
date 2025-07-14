@@ -1,0 +1,70 @@
+         .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://5.imimg.com/data5/SELLER/Default/2021/1/NJ/GN/AS/75393646/3d-waterfall-nature-wallpaper.jpg') no-repeat center center/cover;
+        }
+        .login-box {
+            background: rgb(137, 211, 213);
+            display: flex;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .left-side {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 300px;
+        }
+        .left-side h2 {
+            margin-bottom: 20px;
+        }
+        .right-side {
+            padding: 40px;
+            width: 300px;
+            position: relative;
+        }
+        .right-side h2 {
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .right-side input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .right-side button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+      .right-side .forgot-password {
+            display: block;
+            text-align: right;
+            margin-bottom: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .right-side p {
+            text-align: center;
+        }
+         .right-side a {
+            color: #007bff;
+            text-decoration: none;
+        }
