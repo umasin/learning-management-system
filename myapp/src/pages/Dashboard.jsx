@@ -11,40 +11,41 @@ const Dashboard = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const [userName, setUserName] = useState(localStorage.getItem('username') || '')
 
   const userStats = {
     coursesEnrolled: 12,
     coursesCompleted: 8,
-    totalHours: 156,
+    totalHours: 216,
     streakDays: 23,
     currentLevel: 'Advanced'
   };
 
   const currentCourses = [
-    {
-      id: 1,
-      title: "Advanced React Development",
-      instructor: "Sarah Johnson",
-      progress: 75,
-      nextLesson: "State Management with Redux",
-      timeLeft: "2h 30m",
-      category: "Development",
-      thumbnail: "🚀",
-      lessons: 24,
-      completedLessons: 18
-    },
-    {
-      id: 2,
-      title: "UI/UX Design Principles",
-      instructor: "Marcus Chen",
-      progress: 45,
-      nextLesson: "Color Theory and Typography",
-      timeLeft: "4h 15m",
-      category: "Design",
-      thumbnail: "🎨",
-      lessons: 32,
-      completedLessons: 14
-    },
+    // {
+    //   id: 1,
+    //   title: "Advanced React Development",
+    //   instructor: "Sarah Johnson",
+    //   progress: 75,
+    //   nextLesson: "State Management with Redux",
+    //   timeLeft: "2h 30m",
+    //   category: "Development",
+    //   thumbnail: "🚀",
+    //   lessons: 24,
+    //   completedLessons: 18
+    // },
+    // {
+    //   id: 2,
+    //   title: "UI/UX Design Principles",
+    //   instructor: "Marcus Chen",
+    //   progress: 45,
+    //   nextLesson: "Color Theory and Typography",
+    //   timeLeft: "4h 15m",
+    //   category: "Design",
+    //   thumbnail: "🎨",
+    //   lessons: 32,
+    //   completedLessons: 14
+    // },
     {
       id: 3,
       title: "Data Science Fundamentals",
@@ -101,10 +102,11 @@ const Dashboard = () => {
     { id: 'overview', label: 'Overview', icon: Home },
     { id: 'courses', label: 'My Courses', icon: BookOpen },
     { id: 'progress', label: 'Progress', icon: TrendingUp },
+    { id:'addCourses', label:'Add courses ', icon: BookOpen}
   ];
    const handleLogout = () => {
     setIsLoggedOut(true);
-    setShowLogoutModal(false);
+    setShowLogoutModal(true);
     // Here you would typically clear user data, tokens, etc.
     // For demo purposes, we'll just show a logout message
   };
@@ -245,17 +247,20 @@ const StatCard = ({ icon: Icon, title, value, change, color }) => (
                 <span className="text-white font-medium">AC</span>
               </div>
               <div className="hidden sm:block">
-                <p className="text-white font-medium">Agastya Singhania</p>
+                <p className="text-white font-medium">{userName}</p>
                 <p className="text-white/60 text-xs">{userStats.currentLevel} Learner</p>
               </div>
             </div>
           </div>
         </div>
       </header>
-        <div className="flex">
-        {/* Sidebar */}
-        <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-black/40 backdrop-blur-lg border-r border-white/10 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}>
+      <div className="flex h-screen overflow-hidden">
+  {/* Sidebar */}
+  <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-black/40 backdrop-blur-lg border-r border-white/10 transform transition-transform duration-300 ease-in-out
+    ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+    lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto`}
+  >
+
           <div className="flex items-center justify-between p-4 lg:hidden">
             <span className="text-white font-semibold">Menu</span>
             <button
@@ -263,6 +268,7 @@ const StatCard = ({ icon: Icon, title, value, change, color }) => (
               className="text-white">
               <X className="w-6 h-6" />
             </button>
+
           </div>
   <nav className="mt-8 px-4">
             {sidebarItems.map((item) => {
@@ -277,8 +283,7 @@ const StatCard = ({ icon: Icon, title, value, change, color }) => (
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 mb-2 ${activeTab === item.id
                       ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-white border border-purple-500/30'
                       : 'text-white/70 hover:text-white hover:bg-white/10'
-                    }`}
-                >
+                    }`}>
                   <Icon className="w-5 h-5" />
                   <span>{item.label}</span>
                 </button>
@@ -297,29 +302,29 @@ const StatCard = ({ icon: Icon, title, value, change, color }) => (
           </div>
         </aside>
         {/* Overlay */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          ></div>
-        )}
+          {isSidebarOpen && (
+    <div
+      className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+      onClick={() => setIsSidebarOpen(false)}
+    />
+  )}
        {/* Main Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="p-4 sm:p-6 lg:p-8">
+            <main className="flex-1 overflow-auto lg:ml-64">
+      <div className="p-4 sm:p-6 lg:p-8">
             {activeTab === 'overview' && (
               <div className="space-y-8">
                 {/* Welcome Section */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                      Welcome back, Agastya!!!👋
+                      Welcome back, {userName.split(' ')[0]}!!!👋
                     </h1>
                     <p className="text-white/70">Ready to continue your learning journey?</p>
                   </div>
                   <div className="mt-4 sm:mt-0">
                     <div className="flex items-center space-x-2 text-white/60">
                       <Clock className="w-4 h-4" />
-                      <span>Last login: 2 hours ago</span>
+                      <span>Last login: 1 hours ago</span>
                     </div>
                   </div>
                 </div>
@@ -475,7 +480,14 @@ const StatCard = ({ icon: Icon, title, value, change, color }) => (
                 </div>
               </div>
             )}
-          </div>
+
+            {activeTab === 'addCourses' && (
+              <div>
+              <h2 >Add Course</h2>
+              </div>
+            )} 
+            </div>
+            {/* add course */}
         </main>
       </div>
     </div>

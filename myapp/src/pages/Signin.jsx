@@ -81,8 +81,10 @@ const SignInPage = () => {
     const res = isSignUp ? await axios.post('http://localhost:3000/register',formData) : await axios.post('http://localhost:3000/login', formData)
     console.log(res.data.user._id);
     localStorage.setItem('userId',res.data.user._id)
-        navigate('/dashboard');
+        localStorage.setItem('username',res.data.user.name)
+                navigate('/dashboard');
   };
+
   const switchMode = () => {
     setIsSignUp(!isSignUp);
     setFormData({
