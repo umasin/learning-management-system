@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -7,17 +8,25 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const x= axios.post("/api/auth/signin" )
-    const y= await x.json();
-    if (x.status === 200) {
-      localStorage.setItem("user", JSON.stringify(y));
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post("/api/auth/login", formData);
+    console.log("Response status:", response.status);
+    console.log("Response data:", response.data);
+    const data = response.data; // Access data directly
+    if (response.status === 200) {
+      localStorage.setItem("user", JSON.stringify(data));
+      console.log("Stored in localStorage:", localStorage.getItem("user"));
       navigate("/");
     } else {
-      alert(y.message);
+      alert(data.message || "Login failed");
     }
-  };
+  } catch (error) {
+    console.error("Request error:", error);
+    alert("Error: " + (error.response?.data?.message || error.message));
+  }
+};
   const handleGoogleLogin = async () => {
   };
   return (
