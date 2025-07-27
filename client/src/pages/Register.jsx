@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        fullName: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -28,12 +28,12 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post("/api/register", formData);
+            const response = await axios.post("/api/auth/signup", formData);
 
             if (response.status === 201) {
                 setSuccess("Registration successful!");
                 setFormData({
-                    fullName: "",
+                    username: "",
                     email: "",
                     password: "",
                     confirmPassword: "",
@@ -58,8 +58,8 @@ const Register = () => {
                         <label className="block text-sm font-medium text-gray-700">Full Name</label>
                         <input
                             type="text"
-                            name="fullName"
-                            value={formData.fullName}
+                            name="username"
+                            value={formData.username}
                             onChange={handleChange}
                             className="w-full px-3 py-2 mt-1 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                             required
